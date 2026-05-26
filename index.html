@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umberto Campioni | Sommelier & Wine Consultant</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #121418; 
+            --blanco-suave: #e2e4e9;
+            --fuente-serif: 'EB Garamond', serif;
+            --fuente-titulo: 'Playfair Display', serif;
+            --fuente-firma: 'Mrs Saint Delafield', cursive;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--oscuro);
+            color: var(--blanco-suave);
+            font-family: var(--fuente-serif);
+            overflow-x: hidden;
+            line-height: 1.3;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            gap: 20px;
+            background: var(--oscuro);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--blanco-suave);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* --- HERO (IGUAL A LA ÚLTIMA VERSIÓN) --- */
+        .hero {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-left {
+            position: absolute;
+            left: 0; top: 0; width: 60%; height: 100%;
+            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
+            background-size: cover;
+            mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
+        }
+
+        .hero-right {
+            position: absolute;
+            right: 0; top: 0; width: 60%; height: 100%;
+            background: url('images/Umberto_Main_Photo.jpg') no-repeat;
+            background-size: cover;
+            background-position: center 15%; 
+            mask-image: linear-gradient(to left, black 30%, transparent 90%);
+            -webkit-mask-image: linear-gradient(to left, black 30%, transparent 90%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding-left: 10%;
+        }
+
+        .signature {
+            font-family: var(--fuente-firma);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--dorado);
+            display: block;
+            margin-bottom: -10px;
+        }
+
+        .hero h1 { 
+            font-family: var(--fuente-titulo);
+            font-size: clamp(1.8rem, 4vw, 3rem); 
+            text-transform: uppercase; 
+            margin-bottom: 15px; 
+            letter-spacing: 3px;
+        }
+
+        .btn-gold {
+            text-decoration: none;
+            padding: 12px 20px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            background: var(--dorado); 
+            color: var(--oscuro) !important;
+        }
+
+        /* --- NUEVA SECCIÓN: ESTILO SEGÚN IMAGEN --- */
+        .article-section {
+            background-color: #1a1c21; /* Gris oscuro según imagen */
+            padding: 80px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .article-title-col h2 {
+            font-family: var(--fuente-titulo);
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .article-title-col p {
+            font-style: italic;
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .article-desc-col p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        /* Fila de pilares/iconos */
+        .pillars-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pillar-item {
+            flex: 1;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .pillar-icon {
+            width: 30px;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        .pillar-text h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: var(--blanco-suave);
+        }
+
+        .pillar-text p {
+            font-size: 0.8rem;
+            color: #888;
+            line-height: 1.3;
+        }
+
+        /* Botón estilo "Read Article" derecha */
+        .read-article-col {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--dorado);
+            padding: 15px 25px;
+            text-decoration: none;
+            color: var(--blanco-suave);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--dorado);
+            color: var(--oscuro);
+        }
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; }
+
+        @media (max-width: 1024px) {
+            .article-section { grid-template-columns: 1fr; gap: 30px; }
+            .read-article-col { justify-content: flex-start; }
+            .pillars-row { flex-direction: column; }
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1.5s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Journal</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-left"></div>
+        <div class="hero-right"></div>
+        <div class="hero-content reveal">
+            <span class="signature">Umberto Campioni</span>
+            <h1>Wine. <br>Hospitality. <br>Culture.</h1>
+            <p>From the floor. Not from theory.</p>
+            <a href="ask.html" class="btn-gold">Ask me anything</a>
+        </div>
+    </header>
+
+    <section class="article-section reveal">
+        <div class="article-title-col">
+            <h2>EXPENSIVE WINE IS NOT ALWAYS BETTER.</h2>
+            <p>If you think expensive means better... you're wasting money.</p>
+        </div>
+
+        <div class="article-desc-col">
+            <p>Umberto Campioni is a sommelier and wine educator. His approach focuses on the authentic experience of wine, stripping away pretension to reveal what truly matters in every glass.</p>
+            
+            <div class="pillars-row">
+                <div class="pillar-item">
+                    <img src="images/from_the_floor_transparent.png" class="pillar-icon" alt="Floor">
+                    <div class="pillar-text">
+                        <h4>FROM THE FLOOR</h4>
+                        <p>Real experience. Not from theory.</p>
+                    </div>
+                </div>
+                <div class="pillar-item">
+                    <img src="images/NBS_Logo_transparent.png" class="pillar-icon" alt="No BS">
+                    <div class="pillar-text">
+                        <h4>NO BS.</h4>
+                        <p>Straight talk about wine.</p>
+                    </div>
+                </div>
+                <div class="pillar-item">
+                    <img src="images/Wine_Uncorked_Logo_transparent.png" class="pillar-icon" alt="Global">
+                    <div class="pillar-text">
+                        <h4>GLOBAL PERSPECTIVE</h4>
+                        <p>Wine. Hospitality. Culture.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="read-article-col">
+            <a href="blog.html" class="btn-outline">
+                READ THE ARTICLE <span>&rarr;</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

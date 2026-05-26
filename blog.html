@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal | Umberto Campioni</title>
+    <style>
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --blanco: #f0f0f0;
+            --linea: rgba(255,255,255,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; }
+        
+        nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+
+        .blog-header { text-align: center; padding: 80px 20px 40px; }
+        .blog-header h1 { font-size: 3.5rem; text-transform: uppercase; letter-spacing: 5px; font-weight: normal; }
+
+        /* --- NUEVA BARRA DE FILTROS --- */
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid var(--linea);
+            padding-bottom: 20px;
+        }
+
+        .filter-group { display: flex; gap: 15px; }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--linea);
+            color: #888;
+            padding: 8px 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--dorado);
+            color: var(--dorado);
+        }
+
+        select {
+            background: transparent;
+            border: 1px solid var(--linea);
+            color: var(--dorado);
+            padding: 8px;
+            font-family: 'Garamond', serif;
+            outline: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        .blog-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 40px; 
+            padding: 0 5% 40px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .post-card { 
+            text-decoration: none; 
+            color: inherit; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: 1s all ease; 
+        }
+        .post-card.active { opacity: 1; transform: translateY(0); }
+
+        .img-box { width: 100%; height: 280px; background: #111; overflow: hidden; margin-bottom: 20px; border: 1px solid #1a1a1a; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .post-info span { color: var(--dorado); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; }
+        .post-info h2 { font-size: 1.6rem; text-transform: uppercase; margin: 10px 0; font-weight: normal; }
+        .post-date { color: #666; font-size: 0.8rem; display: block; margin-bottom: 15px; }
+        .read-link { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
+
+        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
+
+        @media (max-width: 768px) {
+            .filters-container { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <header class="blog-header">
+        <h1>Journal</h1>
+        <p style="color: var(--dorado); font-style: italic; margin-top: 10px;">Expertise in every detail.</p>
+    </header>
+
+    <div class="filters-container">
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="updateFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="updateFilter('Choose the wine', this)">Wine Uncorked</button>
+            <button class="filter-btn" onclick="updateFilter('Tell you what really matters', this)">No BS Truth</button>
+            <button class="filter-btn" onclick="updateFilter('Work the Floor', this)">From the Floor</button>
+        </div>
+        
+        <div class="filter-group">
+            <select id="sortDate" onchange="loadBlog()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+    </div>
+
+    <main id="blog-grid" class="blog-grid">
+        </main>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    
+    <script>
+        const USER = 'mauriciofrivera-bot';
+        const REPO = 'umberto-web';
+        let currentCategory = new URLSearchParams(window.location.search).get('cat') || 'all';
+
+        // Manejar el clic en los botones de filtro
+        function updateFilter(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = cat;
+            loadBlog();
+        }
+
+        async function loadBlog() {
+            const grid = document.getElementById('blog-grid');
+            const sortOrder = document.getElementById('sortDate').value;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts`);
+                if (!res.ok) throw new Error("Error conectando con GitHub");
+                
+                const files = await res.json();
+                let articles = [];
+
+                // 1. Obtener y procesar todos los archivos Markdown
+                for (const file of files) {
+                    if (file.name.endsWith('.md')) {
+                        const postRes = await fetch(file.download_url);
+                        const text = await postRes.text();
+                        const parts = text.split('---');
+
+                        if (parts.length >= 3) {
+                            const meta = jsyaml.load(parts[1]);
+                            articles.push({
+                                meta: meta,
+                                fileName: file.name,
+                                date: new Date(meta.date || '2000-01-01')
+                            });
+                        }
+                    }
+                }
+
+                // 2. Aplicar ordenamiento por fecha
+                articles.sort((a, b) => {
+                    return sortOrder === 'newest' ? b.date - a.date : a.date - b.date;
+                });
+
+                // 3. Limpiar grid y renderizar con el filtro de categoría
+                grid.innerHTML = ''; 
+                let count = 0;
+
+                articles.forEach(article => {
+                    const meta = article.meta;
+                    
+                    // Normalizamos categorías (ya que en config.yml es una lista)
+                    const postCategories = Array.isArray(meta.categories) 
+                        ? meta.categories.map(c => c.toLowerCase().trim()) 
+                        : (meta.categories ? [meta.categories.toLowerCase().trim()] : []);
+                    
+                    const matchesFilter = currentCategory === 'all' || 
+                                        postCategories.includes(currentCategory.toLowerCase().trim());
+
+                    if (matchesFilter) {
+                        count++;
+                        let imageSrc = '';
+                        if (meta.thumbnail) {
+                            const fileNameOnly = meta.thumbnail.split('/').pop();
+                            imageSrc = `images/blog/${fileNameOnly}`;
+                        }
+
+                        const card = document.createElement('a');
+                        card.href = `post.html?article=${article.fileName}`;
+                        card.className = 'post-card';
+                        
+                        // Formatear fecha para mostrar
+                        const dateString = article.date.toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric'
+                        });
+
+                        card.innerHTML = `
+                            <div class="img-box">
+                                <img src="${imageSrc}" alt="${meta.title}" 
+                                     onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${imageSrc.split('/').pop()}'">
+                            </div>
+                            <div class="post-info">
+                                <span>${postCategories[0] || ''}</span>
+                                <h2>${meta.title || 'Untitled'}</h2>
+                                <span class="post-date">${dateString}</span>
+                                <span class="read-link">Read article</span>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                        setTimeout(() => card.classList.add('active'), 100);
+                    }
+                });
+
+                if (count === 0) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--dorado); margin-top: 40px;">No articles found in this category.</p>';
+                }
+
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Error synchronizing the Journal.</p>';
+            }
+        }
+
+        // Al iniciar, marcar el botón correcto si venimos con un parámetro 'cat'
+        window.onload = () => {
+            if (currentCategory !== 'all') {
+                const buttons = document.querySelectorAll('.filter-btn');
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes(currentCategory)) {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            loadBlog();
+        };
+    </script>
+</body>
+</html>
