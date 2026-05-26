@@ -20,7 +20,7 @@
         body {
             background-color: var(--oscuro);
             color: var(--blanco-suave);
-            font-family: 'EB Garamond', serif;
+            font-family: 'EB Garamond', serif; /* Actualizado a Serif */
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -29,13 +29,9 @@
         nav {
             display: flex;
             justify-content: center;
-            padding: 15px;
-            gap: 20px;
-            background: var(--oscuro);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 25px;
+            gap: 30px;
+            border-bottom: 1px solid #111;
         }
 
         nav a {
@@ -43,80 +39,73 @@
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.7rem;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        .container {
+        /* --- CONTENEDOR PRINCIPAL DOS COLUMNAS --- */
+        .main-container {
             max-width: 1100px;
-            margin: 80px auto;
-            padding: 0 50px;
+            margin: 0 auto;
+            padding: 80px 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
         }
 
-        /* --- LADO IZQUIERDO (SERVICIOS) --- */
-        .info-content {
-            text-align: left;
-        }
-
-        .diamond {
-            color: var(--dorado);
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        /* --- SECCIÓN IZQUIERDA: MENSAJE --- */
+        .intro-section h1 {
+            font-family: 'Playfair Display', serif; /* Actualizado a Serif */
+            font-size: 3rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 25px;
+            letter-spacing: 3px;
             line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 700;
         }
 
-        .subtitle {
-            font-style: italic;
-            color: var(--gris-texto);
-            margin-bottom: 35px;
+        .intro-section p {
+            color: #ccc;
             font-size: 1.1rem;
+            margin-bottom: 30px;
         }
 
         .services-list {
             list-style: none;
-            margin-top: 30px;
+            margin-bottom: 40px;
         }
 
         .services-list li {
-            position: relative;
-            padding-left: 25px;
+            font-size: 1rem;
+            color: var(--blanco-suave);
             margin-bottom: 12px;
-            font-size: 1.1rem;
-            color: #e0e0e0;
+            padding-left: 25px;
+            position: relative;
         }
 
         .services-list li::before {
-            content: "◆";
-            color: var(--dorado);
+            content: "—";
             position: absolute;
             left: 0;
-            font-size: 0.8rem;
+            color: var(--dorado);
         }
 
         .tagline {
-            margin-top: 40px;
-            border-top: 1px solid var(--linea);
-            padding-top: 20px;
-            font-weight: bold;
+            font-family: 'Playfair Display', serif; /* Actualizado a Serif */
+            font-size: 1.2rem;
             font-style: italic;
-            letter-spacing: 1px;
             color: var(--dorado);
+            line-height: 1.4;
         }
 
-        /* --- LADO DERECHO (FORMULARIO) --- */
+        /* --- SECCIÓN DERECHA: FORMULARIO --- */
+        .contact-form {
+            background-color: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            padding: 40px;
+        }
+
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
@@ -124,63 +113,76 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--gris-texto);
+            color: #aaa;
             margin-bottom: 8px;
+            font-weight: bold;
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input, 
+        .form-group textarea {
             width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--linea);
-            color: #ffffff;
-            padding: 10px 0;
-            font-family: 'EB Garamond', serif;
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-bottom-color 0.3s;
+            background-color: #121212;
+            border: 1px solid var(--linea);
+            color: var(--blanco-suave);
+            padding: 12px 15px;
+            font-family: 'EB Garamond', serif; /* Actualizado a Serif */
+            font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-bottom-color: var(--dorado);
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--dorado);
         }
 
         .btn-submit {
-            background: transparent;
-            border: 1px solid var(--dorado);
-            color: var(--dorado);
-            padding: 15px 45px;
+            width: 100%;
+            background-color: var(--dorado);
+            color: var(--oscuro);
+            border: none;
+            padding: 15px;
+            font-family: 'EB Garamond', serif; /* Actualizado a Serif */
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 20px;
+            transition: background 0.3s;
         }
 
         .btn-submit:hover {
-            background: var(--dorado);
-            color: var(--oscuro);
+            background-color: #d4ab6a;
         }
 
         .note {
-            margin-top: 30px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--gris-texto);
             text-align: center;
-            line-height: 1.4;
+            margin-top: 20px;
+            font-style: italic;
         }
 
-        .note a {
-            color: var(--dorado);
-            text-decoration: none;
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-top: 1px solid #111;
+            margin-top: 60px;
         }
 
-        footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
-
-        @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; gap: 60px; margin: 40px auto; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                padding: 40px 20px;
+            }
+            .intro-section h1 { font-size: 2.2rem; }
+            .contact-form { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -190,23 +192,18 @@
         <a href="index.html">Home</a>
         <a href="blog.html">Journal</a>
         <a href="about.html">About</a>
-        <a href="contact.html">Work With Me</a>
+        <a href="contact.html">Contact</a>
     </nav>
 
-    <main class="container">
-        <section class="info-content">
-            <span class="diamond">◆</span>
-            <h1>Work With Me</h1>
-            <p class="subtitle">For collaborations, consulting, events, and professional inquiries.</p>
+    <main class="main-container">
+        <section class="intro-section">
+            <h1>Let's work together.</h1>
+            <p>I partner with select hospitality groups, premium brands, and institutions to create exceptional wine programs and high-performance floor cultures.</p>
             
-            <p>I work with restaurants, hospitality teams, wine brands, and event partners looking for real expertise and a sharper guest experience.</p>
-
             <ul class="services-list">
-                <li>Wine list development & optimization</li>
-                <li>Staff training & service standards</li>
-                <li>Restaurant openings & repositioning</li>
-                <li>Guest experience consulting</li>
-                <li>Event collaborations & wine experiences</li>
+                <li>Beverage program & wine list curation</li>
+                <li>Staff service training & leadership coaching</li>
+                <li>Bespoke hospitality experiences</li>
                 <li>Brand partnerships</li>
                 <li>Private tastings</li>
                 <li>Speaking & judging</li>
@@ -216,7 +213,7 @@
         </section>
 
         <section class="contact-form">
-            <form name="contact-professional" method="POST" data-netlify="true" action="/success.html">
+            <form name="contact-professional" method="POST" data-netlify=\"true\" action="/success.html">
                 <input type="hidden" name="form-name" value="contact-professional" />
                 
                 <div class="form-group">
@@ -241,5 +238,14 @@
 
                 <button type="submit" class="btn-submit">Send Inquiry</button>
 
-                <p class="note">
-                    This
+                <p class="note">This form is for professional inquiries, corporate services, and strategic partnerships. For general questions, please use the 'Ask Me Anything' page.</p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
+    </footer>
+
+</body>
+</html>

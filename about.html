@@ -19,7 +19,7 @@
         body {
             background-color: var(--oscuro);
             color: var(--blanco-suave);
-            font-family: 'EB Garamond', serif;
+            font-family: 'EB Garamond', serif; /* Actualizado a Serif */
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
@@ -27,140 +27,113 @@
         nav {
             display: flex;
             justify-content: center;
-            padding: 20px;
-            gap: 25px;
-            background: var(--oscuro);
+            padding: 25px;
+            gap: 30px;
             border-bottom: 1px solid var(--linea);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         nav a {
-            color: var(--gris-texto);
+            color: var(--blanco-suave);
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.7rem;
             letter-spacing: 2px;
         }
 
-        .article-container {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 30px; /* Un poco menos de padding lateral para móviles */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
         }
 
-        .diamond {
-            color: var(--dorado);
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 8vw, 4rem);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 50px;
-            line-height: 1.1;
+        .about-image {
+            position: sticky;
+            top: 40px;
         }
 
-        .bio-wrapper {
-            overflow: hidden;
-        }
-
-        /* --- DISEÑO DESKTOP (ESCRITORIO) --- */
-        .bio-image {
-            width: 42%; 
-            max-width: 450px;
-            float: left;
-            margin: 0 40px 30px 0;
-            border: 1px solid var(--linea);
-            padding: 8px;
-            background: #111;
-        }
-
-        .bio-image img {
+        .about-image img {
             width: 100%;
             height: auto;
             display: block;
+            filter: grayscale(20%);
         }
 
-        .bio-text p {
+        .about-text h1 {
+            font-family: 'Playfair Display', serif; /* Actualizado a Serif */
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            color: var(--blanco-suave);
+            font-weight: 700;
+        }
+
+        .about-text .subtitle {
+            font-family: 'EB Garamond', serif; /* Actualizado a Serif */
             font-size: 1.2rem;
-            margin-bottom: 20px;
-            text-align: justify;
-            color: #e0e0e0;
-        }
-
-        .bio-text p:first-of-type::first-letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            float: left;
-            margin-right: 12px;
-            line-height: 0.85;
-            color: var(--dorado);
-            font-weight: bold;
-        }
-
-        .quote {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
             color: var(--dorado);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            color: #ccc;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .about-text .quote {
+            font-family: 'Playfair Display', serif; /* Actualizado a Serif */
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--dorado);
+            border-left: 2px solid var(--dorado);
+            padding-left: 20px;
             margin: 40px 0;
-            padding: 25px 0;
-            border-top: 1px solid var(--linea);
-            border-bottom: 1px solid var(--linea);
-            text-align: center;
-            clear: both;
+            line-height: 1.5;
         }
 
         .signature {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            margin-top: 40px;
+            font-family: 'Playfair Display', serif; /* Actualizado a Serif */
+            font-size: 1.5rem;
+            color: var(--blanco-suave);
             display: block;
-            text-align: right;
-            color: var(--dorado);
+            margin-top: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* --- AJUSTE CRÍTICO PARA SMARTPHONES --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--linea);
+            margin-top: 80px;
+        }
+
         @media (max-width: 768px) {
-            .article-container {
-                margin: 40px auto;
-                padding: 0 20px;
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
-
-            .bio-image {
-                width: 100%;      /* La imagen toma todo el ancho */
-                max-width: none;
-                float: none;      /* Eliminamos el flujo lateral */
-                margin: 0 0 30px 0; /* Espacio solo abajo */
-                padding: 5px;
+            .about-image {
+                position: relative;
+                top: 0;
             }
-
-            .bio-text p {
-                font-size: 1.1rem;
-                text-align: left; /* En móviles es más legible alineado a la izquierda */
+            .about-text h1 {
+                font-size: 2.2rem;
             }
-
-            .bio-text p:first-of-type::first-letter {
-                font-size: 3.5rem; /* Letra un poco más pequeña en móvil */
-            }
-
-            h1 {
-                margin-bottom: 30px;
-            }
-        }
-
-        footer { 
-            text-align: center; padding: 50px 20px; color: #444; font-size: 0.65rem; 
-            border-top: 1px solid var(--linea); margin-top: 60px;
         }
     </style>
 </head>
@@ -173,18 +146,17 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <main class="article-container">
-        <span class="diamond">◆</span>
-        <h1>Beyond the Glass</h1>
-
-        <div class="bio-wrapper">
-            <div class="bio-image">
-                <img src="images/Umberto_Biography.jpeg" alt="Umberto Campioni">
+    <main>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="images/Umberto_Main_Photo.jpg" alt="Umberto Campioni">
             </div>
-
-            <div class="bio-text">
+            <div class="about-text">
+                <h1>Umberto Campioni</h1>
+                <div class="subtitle">Sommelier & Wine Consultant</div>
+                
                 <p>
-                    Umberto Campioni is an Italian sommelier, hospitality professional, and wine educator based in Boston. With nearly two decades of experience in luxury hospitality, Michelin-starred restaurants, and fine dining, Umberto combines Italian culture, professional service, and modern hospitality leadership.
+                    Umberto Campioni is an Italian sommelier, wine educator, and hospitality consultant currently based in Boston. Known for his deep understanding of wine culture and practical approach to hospitality, he focuses on elevating dining operations through smart beverage program designs and modern hospitality leadership.
                 </p>
 
                 <p>
